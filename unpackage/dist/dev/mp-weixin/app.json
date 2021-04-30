@@ -1,0 +1,49 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/mine/mine",
+    "pages/message/message",
+    "pages/category/category",
+    "pages/index/index",
+    "components/recent-deal-item/recent-deal-item"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#FF7C00",
+    "backgroundColor": "#08EEEEEE",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "iconPath": "static/images/home_normal.png",
+        "selectedIconPath": "static/images/home_selected.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/category/category",
+        "iconPath": "static/images/category_normal.png",
+        "selectedIconPath": "static/images/category_selected.png",
+        "text": "分类"
+      },
+      {
+        "pagePath": "pages/message/message",
+        "iconPath": "static/images/message_normal.png",
+        "selectedIconPath": "static/images/message_selected.png",
+        "text": "消息"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "iconPath": "static/images/mine_normal.png",
+        "selectedIconPath": "static/images/mine_selected.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "usingComponents": {}
+}
