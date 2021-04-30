@@ -6,34 +6,15 @@
 			</swiper-item>
 		</swiper>
 		<view class="lastest" v-show="showLastest">
-			<view class="title">推荐商品</view>
+			<view class="section-title">推荐商品</view>
 			<scroll-view class="scroll-view" scroll-x="true" scroll-left="100%">
-			    <view class="lastest-item-item" v-for="(item, index) in latests" :key="index">
-					<image class="icon" src="../../static/test/1.jpeg" mode="scaleToFill"></image>
-					<view>货源地：</view>
-					<view>产品重量：</view>
-					<view>室内存放：</view>
-					<view>最早发货日期：</view>
-				</view>
+			    <lastest-item v-for="(item, index) in latests" :key="index" :item="item"></lastest-item>
 			</scroll-view>
 			
 		</view>
 		<view class="recent-deal" v-show="showRecentDeal">
-			<view class="title">即时成交</view>
-			<view class="recent-deal-list" v-for="(item, index) in recentDeals" :key="index">
-				<text class="name">{{item.name}}</text>
-				<view class="content">
-					<view class="left">
-						<text>货源地</text>
-						<text>重量</text>
-						<text>成交日期</text>
-					</view>
-					<view class="right">
-						<text>目的地</text>
-						<text>成交价</text>
-					</view>
-				</view>
-			</view>
+			<view class="section-title">即时成交</view>
+			<recent-deal-item class="recent-deal-list" v-for="(item, index) in recentDeals" :key="index" :item="item"></recent-deal-item>
 		</view>
 		<view class="test">
 			<text>{{i18n.statistics}}</text>
@@ -143,15 +124,15 @@
 			}
 		}
 	}
+	.section-title {
+		background-color: #FFFFFF;
+		width: 100%;
+		text-align: center;
+		letter-spacing: 10px;
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
 	.lastest {
-		.title {
-			background-color: #FFFFFF;
-			width: 100%;
-			text-align: center;
-			letter-spacing: 10px;
-			padding-top: 5px;
-			padding-bottom: 5px;
-		}
 		.scroll-view_H {
 		    white-space: nowrap;
 		    .lastest-item-item {
@@ -163,59 +144,10 @@
 		.scroll-view {
 			background-color: #2C405A;
 			white-space: nowrap;
-			.lastest-item-item {
-				display: inline-block;
-				height: 100%;
-				background-color: #DCDFE6;
-				width: 300rpx;
-				margin-top: 15px;
-				margin-bottom: 15px;
-				margin-left: 20px;
-				flex-direction: column;
-				.icon {
-					width: 100%;
-					height: 200rpx;
-					border-radius: 15px;
-					margin-bottom: 5px;
-				}
-			}
 		}
 	}
 	.recent-deal {
-		background-color: #DCDFE6;
-		width: 750rpx;
-		.title {
-			background-color: #FFFFFF;
-			width: 100%;
-			text-align: center;
-			letter-spacing: 10px;
-			padding-top: 5px;
-			padding-bottom: 5px;
-		}
-		.name {
-			font-size: 14px;
-			padding-top: 5px;
-			padding-bottom: 5px;
-			margin-left: $xx-spaceing-hmargin;
-			margin-right: $xx-spaceing-hmargin;
-		}
-		.content {
-			display: flex;
-			flex-direction: row;
-			margin-bottom: 15px;
-			.left {
-				display: flex;
-				flex-direction: column;
-				width: 50%;
-				margin-left: $xx-spaceing-hmargin;
-			}
-			.right {
-				display: flex;
-				flex-direction: column;
-				width: 50%;
-				margin-right: $xx-spaceing-hmargin;
-			}
-		}
+		
 	}
 	
 </style>

@@ -1,7 +1,7 @@
 <template>
 	<view class="parent">
 		<category-bar class="top"></category-bar>
-		<scroll-view class="bottom" >
+		<scroll-view class="bottom" scroll-y="true">
 			<category-item v-for="(item, index) in listings" :key="index" :item="item"></category-item>
 			<load-more-item :hasMoreData="hasMoreData"></load-more-item>
 		</scroll-view>
