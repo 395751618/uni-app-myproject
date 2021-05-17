@@ -1,6 +1,40 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+		    "path" : "pages/tabbaritem1/tabbaritem1",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "首页"
+		    }
+		    
+		}
+		,{
+		    "path" : "pages/tabbaritem2/tabbaritem2",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "分类"
+		    }
+		    
+		}
+		,{
+		    "path" : "pages/tabbaritem3/tabbaritem3",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "消息",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+		,{
+		    "path" : "pages/tabbaritem4/tabbaritem4",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "我的",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+		,{
             "path" : "pages/home/home",
             "style" :                                                                                    
             {
@@ -32,7 +66,8 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "分类",
-                "enablePullDownRefresh": true
+                "enablePullDownRefresh": true,
+				"disableScroll": true // 不嵌套 scroller
             }
             
         },
@@ -67,27 +102,54 @@
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},
+	// "tabBar": {
+	// 	"color":"#999999",
+	// 	"selectedColor":"#FF7C00",
+	// 	"backgroundColor":"#08EEEEEE",
+	// 	"list":[{
+	// 			"pagePath": "pages/home/home",
+	// 			"iconPath": "static/images/home_normal.png",
+	// 			"selectedIconPath": "static/images/home_selected.png",
+	// 			"text": "首页"
+	// 		}, {
+	// 			"pagePath": "pages/category/category",
+	// 			"iconPath": "static/images/category_normal.png",
+	// 			"selectedIconPath": "static/images/category_selected.png",
+	// 			"text": "分类"
+	// 		}, {
+	// 			"pagePath": "pages/message/message",
+	// 			"iconPath": "static/images/message_normal.png",
+	// 			"selectedIconPath": "static/images/message_selected.png",
+	// 			"text": "消息"
+	// 		}, {
+	// 			"pagePath": "pages/mine/mine",
+	// 			"iconPath": "static/images/mine_normal.png",
+	// 			"selectedIconPath": "static/images/mine_selected.png",
+	// 			"text": "我的"
+	// 		}
+	// 	]
+	// },
 	"tabBar": {
 		"color":"#999999",
 		"selectedColor":"#FF7C00",
 		"backgroundColor":"#08EEEEEE",
 		"list":[{
-				"pagePath": "pages/home/home",
+				"pagePath": "pages/tabbaritem1/tabbaritem1",
 				"iconPath": "static/images/home_normal.png",
 				"selectedIconPath": "static/images/home_selected.png",
 				"text": "首页"
 			}, {
-				"pagePath": "pages/category/category",
+				"pagePath": "pages/tabbaritem2/tabbaritem2",
 				"iconPath": "static/images/category_normal.png",
 				"selectedIconPath": "static/images/category_selected.png",
 				"text": "分类"
 			}, {
-				"pagePath": "pages/message/message",
+				"pagePath": "pages/tabbaritem3/tabbaritem3",
 				"iconPath": "static/images/message_normal.png",
 				"selectedIconPath": "static/images/message_selected.png",
 				"text": "消息"
 			}, {
-				"pagePath": "pages/mine/mine",
+				"pagePath": "pages/tabbaritem4/tabbaritem4",
 				"iconPath": "static/images/mine_normal.png",
 				"selectedIconPath": "static/images/mine_selected.png",
 				"text": "我的"

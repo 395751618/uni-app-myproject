@@ -1,0 +1,87 @@
+<template>
+	<view class="parent">
+		<view class="segment-control">
+			
+		</view>
+		<list>
+			<refresh class="refresh" :display="refreshing ? 'show' : 'hide'" @refresh="onRefresh()" @pullingdown="onPullingDown">
+			    <text class="refresh-text">{{refreshText}}</text>
+				<loading-indicator></loading-indicator>
+			  </refresh>
+		    <cell v-for="(item, index) in lists" :key="item">
+		      <text>{{item}}</text>
+		    </cell>
+		  </list>
+	</view>
+</template>
+
+<script>
+	export default {
+		data() {
+			return {
+				refreshing: false,
+				pulling: false,
+				refreshText: "",
+				lists: ["1","2","3","4","5","6","7","8","9","1","2","3","4","5","6","7","8","9","1","2","3","4","5","6","7","8","9","1","2","3","4","5","6","7","8","9"]
+			}
+		},
+		methods: {
+			refreshData() {
+				
+			},
+			onRefresh() {
+				console.log('onRefresh')
+				this.refreshing = true;
+				this.refreshText = "正在刷新...";
+				setTimeout(() => {
+				    this.refreshData();
+				    this.pulling = true;
+				    this.refreshing = false;
+				    this.refreshText = "已刷新";
+				    setTimeout(() => { // TODO fix ios和Android 动画时间相反问题
+				        this.pulling = false;
+						this.refreshing = false;
+				    }, 500);
+				}, 2000);
+			},
+			onPullingDown(e) {
+				console.log('onPullingDown')
+				if (this.refreshing || this.pulling) {
+				    return;
+				}
+				if (Math.abs(e.pullingDistance) > Math.abs(e.viewHeight)) {
+				    this.refreshText = "释放立即刷新";
+				} else {
+				    this.refreshText = "下拉可以刷新";
+				}
+			}
+		}
+	}
+</script>
+
+<style>
+	.parent {
+		flex: 1;
+		flex-direction: column;
+		overflow: hidden;
+		background-color: #E5E5E5;
+	}
+	.segment-control {
+		background-color: #007AFF;
+		height: 80rpx;
+	}
+	.segment-control-line {
+	    height: 1rpx;
+	    background-color: #cccccc;
+	}
+	.refresh {
+	    text-align: center;
+	    height: 64px;
+	    justify-content: center;
+	}
+	.refresh-text {
+		text-align: center;
+		justify-content: center;
+		font-size: 15sp;
+	}
+</style>

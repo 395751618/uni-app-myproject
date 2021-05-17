@@ -9,6 +9,7 @@
 			<view class="section-title">推荐商品</view>
 			<scroll-view class="scroll-view" scroll-x="true" scroll-left="100%">
 			    <lastest-item v-for="(item, index) in latests" :key="index" :item="item"></lastest-item>
+				<view class="lastest-end" v-if="latests.length > 2"></view>
 			</scroll-view>
 			
 		</view>
@@ -145,6 +146,16 @@
 			background-color: #2C405A;
 			white-space: nowrap;
 		}
+	}
+	.lastest-end {
+		display: inline-block;
+		height: 100%;
+		background-color: #007AFF;
+		width: 0rpx;
+		margin-top: 15px;
+		margin-bottom: 15px;
+		margin-left: 20px;
+		flex-direction: column;
 	}
 	.recent-deal {
 		
