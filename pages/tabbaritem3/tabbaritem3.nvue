@@ -1,22 +1,62 @@
 <template>
-	<view>
+	<list-refresh class="list" ref="list" :lists="lists" :hasMoreData="hasMoreData" @refreshData="refreshData">
+		<!-- <template v-slot:test>
+			<text>fadfasafafdsa</text>
+		</template> -->
 		
-	</view>
+		<!-- <template v-slot="{lists}">
+			
+		</template> -->
+		<cell v-for="(item, index) in lists" :key="item">
+			<text>{{item}}</text>
+		</cell>
+	</list-refresh>
 </template>
 
 <script>
+	import listRefresh from '../components/list-refresh/list-refresh.nvue'
+	
 	export default {
+		components: {
+			listRefresh
+		},
 		data() {
 			return {
-				
+				hasMoreData: true,
+				lists: []
 			}
 		},
+		onLoad: function (options) {
+			this.listingList(true, 0, getApp().globalData.take)
+		},
 		methods: {
-			
+			refreshData(e) {
+				console.log(e)
+				this.listingList(e.isRefresh, e.skip, e.take)
+			},
+			listingList(isRefresh, skip, take) {
+				getApp().globalData.request.apis.listingList({"skip": skip, "take": take}).then((res) => {
+					if (res.code == 1) {
+						this.hasMoreData = (res.data.length >= take)
+						if (isRefresh) {
+							this.lists = res.data
+						} else {
+							this.lists = this.lists.concat(res.data)
+						}
+					} else {
+						
+					}
+					this.loadDataFinish()
+				})
+			},
+			loadDataFinish() {
+				this.$refs.list.loadDataFinish()
+				// this.$refs.list.$emit("loadDataFinish")
+			}
 		}
 	}
 </script>
 
 <style>
-
+	
 </style>

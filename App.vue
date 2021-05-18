@@ -1,5 +1,10 @@
 <script>
+	import request from 'request/RequestApp.js'
 	export default {
+		globalData: {
+			request: request,
+			take: 10
+		},
 		onLaunch: function() {
 			console.log('App Launch')
 		},

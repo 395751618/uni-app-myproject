@@ -1,48 +1,49 @@
 <template>
 	<view class="parent">
-		<view class="segment-control">
-			
-		</view>
-		<list>
-			<refresh class="refresh" :display="refreshing ? 'show' : 'hide'" @refresh="onRefresh" @pullingdown="onPullingDown">
+		<list class="list">
+			<refresh class="refresh" :display="refreshing ? 'show' : 'hide'" @refresh="onRefresh()" @pullingdown="onPullingDown">
 			    <text class="refresh-text">{{refreshText}}</text>
 				<loading-indicator></loading-indicator>
 			</refresh>
-		    <cell v-for="(item, index) in lists" :key="item">
-				<text>{{item}}</text>
-		    </cell>
-		</list>
+			<slot></slot>
+		  </list>
 	</view>
 </template>
 
 <script>
 	export default {
+		props: {
+			hasMoreData: {
+				type: Boolean,
+				default: true
+			}
+		},
 		data() {
 			return {
 				refreshing: false,
 				pulling: false,
 				refreshText: "",
-				lists: ["1","2","3","4","5","6","7","8","9","1","2","3","4","5","6","7","8","9","1","2","3","4","5","6","7","8","9","1","2","3","4","5","6","7","8","9"]
+				skip: 0,
+				take: getApp().globalData.take
 			}
 		},
 		methods: {
+			loadDataFinish() {
+				this.pulling = false;
+				this.refreshing = false;
+				this.refreshText = "已刷新";
+			},
 			refreshData() {
-				
+				this.$emit("refreshData", {"isRefresh": true, "skip": this.skip, "take": this.take})
+			},
+			loadMoreData() {
+				this.$emit("refreshData", {"isRefresh": false, "skip": this.skip, "take": this.take})
 			},
 			onRefresh() {
 				console.log('onRefresh')
 				this.refreshing = true;
 				this.refreshText = "正在刷新...";
-				setTimeout(() => {
-				    this.refreshData();
-				    this.pulling = true;
-				    this.refreshing = false;
-				    this.refreshText = "已刷新";
-				    setTimeout(() => { // TODO fix ios和Android 动画时间相反问题
-				        this.pulling = false;
-						this.refreshing = false;
-				    }, 500);
-				}, 2000);
+				this.refreshData();
 			},
 			onPullingDown(e) {
 				console.log('onPullingDown')
@@ -64,15 +65,6 @@
 		flex: 1;
 		flex-direction: column;
 		overflow: hidden;
-		background-color: #E5E5E5;
-	}
-	.segment-control {
-		background-color: #007AFF;
-		height: 80rpx;
-	}
-	.segment-control-line {
-	    height: 1rpx;
-	    background-color: #cccccc;
 	}
 	.refresh {
 	    text-align: center;

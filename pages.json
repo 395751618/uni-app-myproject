@@ -139,7 +139,7 @@
 				"selectedIconPath": "static/images/home_selected.png",
 				"text": "首页"
 			}, {
-				"pagePath": "pages/tabbaritem2/tabbaritem2",
+				"pagePath": "pages/category/category",
 				"iconPath": "static/images/category_normal.png",
 				"selectedIconPath": "static/images/category_selected.png",
 				"text": "分类"
