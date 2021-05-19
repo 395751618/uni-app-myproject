@@ -1,14 +1,14 @@
 <template>
 	<view class="parent">
-		<list class="list" loadmoreoffset="15" @loadmore="onLoadMore">
+		<list class="list">
 			<refresh class="refresh" :display="refreshing ? 'show' : 'hide'" @refresh="onRefresh()" @pullingdown="onPullingDown">
 			    <text class="refresh-text">{{refreshText}}</text>
 				<loading-indicator></loading-indicator>
 			</refresh>
 			<slot></slot>
-			<cell class="loading" v-if="hasMoreData">
+			<loading class="loading" :display="loading ? 'show' : 'hide'" @loading="onLoadMore" @pullingup="onPullUp">
 				<text class="load-more-text">{{loadMoreText}}</text>
-			</cell>
+			</loading>
 		  </list>
 	</view>
 </template>
@@ -26,7 +26,7 @@
 				refreshing: false,
 				refreshText: "",
 				loading: false,
-				loadMoreText: "正在加载...",
+				loadMoreText: "正在加载更多...",
 				skip: 0,
 				take: getApp().globalData.take
 			}
@@ -40,13 +40,10 @@
 				}
 				if (this.loading) {
 					this.loading = false
+					this.loadMoreText = (success ? "已加载" : "加载失败")
 					this.skip = (success ? this.skip : this.skip - 1)
 					return
 				}
-			},
-			refreshData() {
-				this.skip = 0
-				this.$emit("refreshData", {"isRefresh": true, "skip": this.skip, "take": this.take})
 			},
 			loadMoreData() {
 				this.skip += 1
@@ -55,9 +52,24 @@
 			onLoadMore() {
 				if (this.hasMoreData) {
 					this.loading = true
+					this.loadMoreText = "正在加载更多..."
 					this.loadMoreData()
 					return
 				}
+			},
+			onPullUp(e) {
+				if (this.refreshing || this.loading) {
+				    return
+				}
+				if (Math.abs(e.pullingDistance) > Math.abs(e.viewHeight)) {
+				    this.loadMoreText = "释放立即加载更多";
+				} else {
+				    this.loadMoreText = "上拉可以加载更多";
+				}
+			},
+			refreshData() {
+				this.skip = 0
+				this.$emit("refreshData", {"isRefresh": true, "skip": this.skip, "take": this.take})
 			},
 			onRefresh() {
 				this.refreshing = true
@@ -105,3 +117,4 @@
 		font-size: 15sp;
 	}
 </style>
+

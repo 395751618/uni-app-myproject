@@ -3,7 +3,7 @@
 	export default {
 		globalData: {
 			request: request,
-			take: 10
+			take: 20
 		},
 		onLaunch: function() {
 			console.log('App Launch')

@@ -1,22 +1,62 @@
 <template>
-	<view>
-		
-	</view>
+<!-- 	<list-refresh class="list" ref="list" :lists="lists" :hasMoreData="hasMoreData" @refreshData="refreshData">
+		<cell v-for="(item, index) in lists" :key="item">
+			<text>{{item.number}} | {{item.source}} | {{item.name}}</text>
+		</cell>
+	</list-refresh> -->
+	
+	<list-loading class="list" ref="list" :lists="lists" :hasMoreData="hasMoreData" @refreshData="refreshData">
+		<cell v-for="(item, index) in lists" :key="item">
+			<text>{{item.number}} | {{item.source}} | {{item.name}}</text>
+		</cell>
+	</list-loading>
 </template>
 
 <script>
+	import listRefresh from '../components/list-refresh/list-refresh.nvue'
+	import listLoading from '../components/list-loading/list-loading.nvue'
+	
 	export default {
+		components: {
+			listRefresh,
+			listLoading
+		},
 		data() {
 			return {
-				
+				hasMoreData: true,
+				lists: []
 			}
 		},
+		onLoad: function (options) {
+			this.listingList(true, 0, getApp().globalData.take)
+		},
 		methods: {
-			
+			refreshData(e) {
+				console.log(e)
+				this.listingList(e.isRefresh, e.skip, e.take)
+			},
+			listingList(isRefresh, skip, take) {
+				getApp().globalData.request.apis.listingList({"skip": skip, "take": take}).then((res) => {
+					if (res.code == 1) {
+						this.hasMoreData = (res.data.length >= take)
+						if (isRefresh) {
+							this.lists = res.data
+						} else {
+							this.lists = this.lists.concat(res.data)
+						}
+						this.loadDataFinish(true)
+					} else {
+						this.loadDataFinish(false)
+					}
+				})
+			},
+			loadDataFinish(success) {
+				this.$refs.list.loadDataFinish(success)
+			}
 		}
 	}
 </script>
 
 <style>
-
+	
 </style>

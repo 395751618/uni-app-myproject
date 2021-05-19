@@ -1,0 +1,27 @@
+<template>
+	<view>
+		message-list
+	</view>
+</template>
+
+<script>
+	export default {
+		data() {
+			return {
+				
+			}
+		},
+		onLoad: function (option) {
+			uni.setNavigationBarTitle({
+				title:option.name
+			})
+		},
+		methods: {
+			
+		}
+	}
+</script>
+
+<style>
+
+</style>

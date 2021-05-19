@@ -1,62 +1,91 @@
 <template>
-	<list-refresh class="list" ref="list" :lists="lists" :hasMoreData="hasMoreData" @refreshData="refreshData">
-		<!-- <template v-slot:test>
-			<text>fadfasafafdsa</text>
-		</template> -->
-		
-		<!-- <template v-slot="{lists}">
-			
-		</template> -->
-		<cell v-for="(item, index) in lists" :key="item">
-			<text>{{item}}</text>
-		</cell>
-	</list-refresh>
+	<view class="parent">
+		<view class="background">
+			<list-none class="list" ref="list" :lists="lists">
+				<cell class="cell" v-for="(item, index) in lists" :key="index" @click="onCellClicked(index)">
+					<view class="content">
+						<image class="image" mode="'aspectFit'" :src="item.icon"></image>
+						<text class="text">{{item.name}}</text>
+					</view>
+					<view class="line" v-if="index != lists.length - 1"></view>
+				</cell>
+			</list-none>
+		</view>
+	</view>
 </template>
 
 <script>
-	import listRefresh from '../components/list-refresh/list-refresh.nvue'
-	
+	import listNone from '../components/list/list-none.nvue'
+
 	export default {
 		components: {
-			listRefresh
+			listNone
 		},
 		data() {
 			return {
-				hasMoreData: true,
-				lists: []
+				lists: [{"icon":"/static/images/message_offer_icon.png", "name":"订单消息"},
+						{"icon":"/static/images/message_order_icon.png", "name":"报价消息"},
+						{"icon":"/static/images/message_system_icon.png", "name":"系统消息"}]
 			}
 		},
 		onLoad: function (options) {
-			this.listingList(true, 0, getApp().globalData.take)
+			
 		},
 		methods: {
-			refreshData(e) {
-				console.log(e)
-				this.listingList(e.isRefresh, e.skip, e.take)
-			},
-			listingList(isRefresh, skip, take) {
-				getApp().globalData.request.apis.listingList({"skip": skip, "take": take}).then((res) => {
-					if (res.code == 1) {
-						this.hasMoreData = (res.data.length >= take)
-						if (isRefresh) {
-							this.lists = res.data
-						} else {
-							this.lists = this.lists.concat(res.data)
-						}
-					} else {
-						
-					}
-					this.loadDataFinish()
+			onCellClicked(index) {
+				console.log(index)
+				uni.navigateTo({
+					url: '../message-list/message-list?name=' + this.lists[index].name,
+					animationType: 'pop-in',
+					animationDuration: 200
 				})
-			},
-			loadDataFinish() {
-				this.$refs.list.loadDataFinish()
-				// this.$refs.list.$emit("loadDataFinish")
 			}
 		}
 	}
 </script>
 
-<style>
-	
+<style lang="scss">
+	.parent {
+		flex: 1;
+		background-color: #FFFFFF;
+	}
+	.background {
+		margin-top: 10px;
+		margin-bottom: 10px;
+		margin-left: 20px;
+		margin-right: 20px;
+		border-radius: 8px;
+		border-style: solid;
+		border-color: #DCDFE6;
+		border-width: 1px;
+	}
+	.list {
+		
+	}
+	.cell {
+		display: flex;
+		flex-direction: column;
+	}
+	.content {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		padding-left: 20px;
+		padding-right: 20px;
+		padding-top: 20px;
+		padding-bottom: 20px;
+	}
+	.line {
+		height: 1rpx;
+		background-color: #F0F033;
+		margin-left: 50px;
+	}
+	.image {
+		width: 25px;
+		height: 25px;
+		margin-right: 10px;
+	}
+	.text {
+		font-size: 15sp;
+	}
 </style>

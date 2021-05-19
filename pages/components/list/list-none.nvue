@@ -1,0 +1,33 @@
+<template>
+	<view class="parent">
+		<list class="list">
+			<slot></slot>
+		  </list>
+	</view>
+</template>
+
+<script>
+	export default {
+		props: {
+			
+		},
+		data() {
+			return {
+				
+			}
+		},
+		methods: {
+			
+		}
+	}
+</script>
+
+<style>
+	.parent {
+		flex: 1;
+		flex-direction: column;
+		overflow: hidden;
+	}
+</style>
+
+
