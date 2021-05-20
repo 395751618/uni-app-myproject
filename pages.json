@@ -4,7 +4,10 @@
 		    "path" : "pages/tabbaritem1/tabbaritem1",
 		    "style" :                                                                                    
 		    {
-		        "navigationBarTitleText": "首页"
+		        "navigationBarTitleText": "首页",
+				"backgroundColor":"#F6F6F6",
+				"navigationBarBackgroundColor":"#FF7519",
+				"navigationBarTextStyle":"white"
 		    }
 		    
 		}
@@ -12,7 +15,10 @@
 		    "path" : "pages/tabbaritem2/tabbaritem2",
 		    "style" :                                                                                    
 		    {
-		        "navigationBarTitleText": "分类"
+		        "navigationBarTitleText": "分类",
+				"backgroundColor":"#F6F6F6",
+				"navigationBarBackgroundColor":"#FF7519",
+				"navigationBarTextStyle":"white"
 		    }
 		    
 		}
@@ -21,6 +27,9 @@
 		    "style" :                                                                                    
 		    {
 		        "navigationBarTitleText": "消息",
+				"backgroundColor":"#F6F6F6",
+				"navigationBarBackgroundColor":"#FF7519",
+				"navigationBarTextStyle":"white",
 		        "enablePullDownRefresh": false
 		    }
 		    
@@ -30,6 +39,9 @@
 		    "style" :                                                                                    
 		    {
 		        "navigationBarTitleText": "我的",
+				"backgroundColor":"#F6F6F6",
+				"navigationBarBackgroundColor":"#FF7519",
+				"navigationBarTextStyle":"white",
 		        "enablePullDownRefresh": false
 		    }
 		    
@@ -39,6 +51,9 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "首页",
+				"backgroundColor":"#F6F6F6",
+				"navigationBarBackgroundColor":"#FF7519",
+				"navigationBarTextStyle":"white",
                 "enablePullDownRefresh": true
             }
             
@@ -48,6 +63,9 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "我的",
+				"backgroundColor":"#F6F6F6",
+				"navigationBarBackgroundColor":"#FF7519",
+				"navigationBarTextStyle":"white",
                 "enablePullDownRefresh": false
             }
             
@@ -57,6 +75,9 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "消息",
+				"backgroundColor":"#F6F6F6",
+				"navigationBarBackgroundColor":"#FF7519",
+				"navigationBarTextStyle":"white",
                 "enablePullDownRefresh": false
             }
             
@@ -66,6 +87,9 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "分类",
+				"backgroundColor":"#F6F6F6",
+				"navigationBarBackgroundColor":"#FF7519",
+				"navigationBarTextStyle":"white",
                 "enablePullDownRefresh": true,
 				"disableScroll": true // 不嵌套 scroller
             }
@@ -148,7 +172,7 @@
 				"selectedIconPath": "static/images/home_selected.png",
 				"text": "首页"
 			}, {
-				"pagePath": "pages/category/category",
+				"pagePath": "pages/tabbaritem2/tabbaritem2",
 				"iconPath": "static/images/category_normal.png",
 				"selectedIconPath": "static/images/category_selected.png",
 				"text": "分类"

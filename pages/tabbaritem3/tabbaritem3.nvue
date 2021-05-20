@@ -4,8 +4,14 @@
 			<list-none class="list" ref="list" :lists="lists">
 				<cell class="cell" v-for="(item, index) in lists" :key="index" @click="onCellClicked(index)">
 					<view class="content">
-						<image class="image" mode="'aspectFit'" :src="item.icon"></image>
-						<text class="text">{{item.name}}</text>
+						<view class="content-left">
+							<image class="image" mode="'aspectFit'" :src="item.icon"></image>
+							<text class="text">{{item.name}}</text>
+						</view>
+						<view class="content-right">
+							<text class="point">123</text>
+							<image class="arrow" mode="'aspectFit'" src="../../static/images/viewholder_arrow.png"></image>
+						</view>
 					</view>
 					<view class="line" v-if="index != lists.length - 1"></view>
 				</cell>
@@ -23,8 +29,8 @@
 		},
 		data() {
 			return {
-				lists: [{"icon":"/static/images/message_offer_icon.png", "name":"订单消息"},
-						{"icon":"/static/images/message_order_icon.png", "name":"报价消息"},
+				lists: [{"icon":"/static/images/message_order_icon.png", "name":"订单消息"},
+						{"icon":"/static/images/message_offer_icon.png", "name":"报价消息"},
 						{"icon":"/static/images/message_system_icon.png", "name":"系统消息"}]
 			}
 		},
@@ -33,7 +39,6 @@
 		},
 		methods: {
 			onCellClicked(index) {
-				console.log(index)
 				uni.navigateTo({
 					url: '../message-list/message-list?name=' + this.lists[index].name,
 					animationType: 'pop-in',
@@ -45,47 +50,62 @@
 </script>
 
 <style lang="scss">
-	.parent {
-		flex: 1;
-		background-color: #FFFFFF;
-	}
 	.background {
-		margin-top: 10px;
-		margin-bottom: 10px;
-		margin-left: 20px;
-		margin-right: 20px;
+		margin-top: 40rpx;
+		margin-left: 30rpx;
+		margin-right: 30rpx;
 		border-radius: 8px;
 		border-style: solid;
 		border-color: #DCDFE6;
-		border-width: 1px;
-	}
-	.list {
-		
+		border-width: 1rpx;
+		background-color: #FFFFFF;
 	}
 	.cell {
-		display: flex;
 		flex-direction: column;
 	}
 	.content {
-		display: flex;
 		flex-direction: row;
 		align-items: center;
-		padding-left: 20px;
-		padding-right: 20px;
-		padding-top: 20px;
-		padding-bottom: 20px;
+		padding-left: 30rpx;
+		padding-right: 30rpx;
+		padding-top: 30rpx;
+		padding-bottom: 30rpx;
+		justify-content: space-between;
+	}
+	.content-left {
+		flex-direction: row;
+		align-items: center;
 	}
 	.line {
 		height: 1rpx;
-		background-color: #F0F033;
-		margin-left: 50px;
+		background-color: #D8D8D8;
+		margin-left: 80rpx;
 	}
 	.image {
-		width: 25px;
-		height: 25px;
-		margin-right: 10px;
+		width: 25rpx;
+		height: 25rpx;
+		margin-right: 20rpx;
 	}
 	.text {
 		font-size: 15sp;
+	}
+	.content-right {
+		flex-direction: row;
+		align-items: center;
+	}
+	.point {
+		background-color: #DD524D;
+		padding-left: 6px;
+		padding-right: 6px;
+		padding-top: 3px;
+		padding-bottom: 3px;
+		font-size: 11sp;
+		color: #FFFFFF;
+		margin-right: 20rpx;
+		border-radius: 20rpx;
+	}
+	.arrow {
+		width: 10rpx;
+		height: 17rpx;
 	}
 </style>

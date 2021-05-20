@@ -34,8 +34,6 @@
 <style>
 	.list-item {
 		background-color: #8F8F94;
-		width: 100%;
-		display: flex;
 		flex-direction: row;
 		margin-top: 15px;
 		margin-left: $xx-spaceing-hmargin;

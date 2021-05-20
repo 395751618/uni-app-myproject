@@ -1,184 +1,135 @@
 <template>
-	<view class="tabs">
-		<view class="segment-control">
-			
+	<view class="parent">
+		<view class="head">
+			<view class="content">
+				<view class="time-background" @click="onTimeClick">
+					<text class="time">发布时间</text>
+					<image class="time-arrow" mode="aspectFit" src="/static/images/category_arrow1.png"></image>
+				</view>
+				<view class="filter-background" @click="onFilterClick">
+					<text class="filter">筛选</text>
+					<image class="filter-arrow" mode="aspectFit" src="/static/images/category_arrow2.png"></image>
+				</view>
+			</view>
+			<line class="line"></line>
 		</view>
-		<view class="segment-control-line"></view>
-		<!-- #ifdef APP-NVUE -->
-		<list class="list" enableBackToTop="true" scroll-y loadmoreoffset="15" @loadMore="loadMore">
-			<refresh @refresh="onRefresh" @pullingdown="onPullingDown" :display="refreshing ? 'show' : 'hide'">
-				<div class="refresh-view">
-					<image class="refresh-icon" :src="refreshIcon" :style="{width: (pulling) ? 0: '30px'}" :class="{'refresh-icon-active': refreshFlag}"></image>
-					<loading-indicator class="loading-icon" animating="true" v-if="refreshing"></loading-indicator>
-					<text class="loading-text">123</text>
-				</div>
-			</refresh>
-			<!-- <cell v-for="(item, index) in listingList" :key="index">
-				<text class="listing-item">item</text>
+		<list-refresh class="list" ref="list" :lists="lists" :hasMoreData="hasMoreData" @refreshData="refreshData">
+			<cell v-for="(item, index) in lists" :key="item">
+				<!-- <text>{{item.number}} | {{item.source}} | {{item.name}}</text> -->
+				<category-item :item="item"></category-item>
 			</cell>
-			<cell class="loading-more" v-if="listingList.length > 4">
-				<text class="loading-more-text">更多数据</text>
-			</cell> -->
-			<cell class="listing-item" v-for="(item, index) in listingList" :key="index">
-			  <text>{{item}}</text>
-			</cell>
-		</list>
-		<!-- #endif -->
-		<!-- #ifndef APP-NVUE -->
-		<scroll-view class="scroll-v list" enableBackToTop="true" scroll-y @scrolltolower="loadMore(index1)">
-			<view v-for="(newsitem,index2) in tab.data" :key="newsitem.id">
-				<media-item :options="newsitem" @close="close(index1,index2)" @click="goDetail(newsitem)"></media-item>
-			</view>
-			<view class="loading-more" v-if="tab.isLoading || tab.data.length > 4">
-				<text class="loading-more-text">{{tab.loadingText}}</text>
-			</view>
-		</scroll-view>
-		<!-- #endif -->
+		</list-refresh>
 	</view>
 </template>
 
 <script>
+	import line from '../../components/line/line.vue'
+	import listRefresh from '../components/list-refresh/list-refresh.nvue'
+	import cell from '../../components/category-item/category-item.vue'
+
 	export default {
+		components: {
+			line,
+			listRefresh,
+			cell
+		},
 		data() {
 			return {
-				listingList: ["1","2","3","4","5","6","7","8","9"],
-				pulling: false,
-				refreshFlag: false,
-				refreshing: false,
-				refreshText: ''
+				hasMoreData: true,
+				lists: []
 			}
 		},
+		onLoad: function(options) {
+			this.listingList(true, 0, getApp().globalData.take)
+		},
 		methods: {
-			loadMore() {
-				
+			refreshData(e) {
+				console.log(e)
+				this.listingList(e.isRefresh, e.skip, e.take)
 			},
-			onRefresh(e) {
-			    setTimeout(() => {
-			        this.refreshData();
-			        this.pulling = true;
-			        setTimeout(() => { // TODO fix ios和Android 动画时间相反问题
-			            this.pulling = false;
-			        }, 500);
-			    }, 2000);
+			listingList(isRefresh, skip, take) {
+				getApp().globalData.request.apis.listingList({
+					"skip": skip,
+					"take": take
+				}).then((res) => {
+					if (res.code == 1) {
+						this.hasMoreData = (res.data.length >= take)
+						if (isRefresh) {
+							this.lists = res.data
+						} else {
+							this.lists = this.lists.concat(res.data)
+						}
+						this.loadDataFinish(true)
+					} else {
+						this.loadDataFinish(false)
+					}
+				})
 			},
-			onPullingDown(e) {
-			    if (refreshing || this.pulling) {
-			        return;
-			    }
-			    if (Math.abs(e.pullingDistance) > Math.abs(e.viewHeight)) {
-			        refreshFlag = true;
-			        refreshText = "释放立即刷新";
-			    } else {
-			        refreshFlag = false;
-			        refreshText = "下拉可以刷新";
-			    }
+			loadDataFinish(success) {
+				this.$refs.list.loadDataFinish(success)
+			},
+			onTimeClick() {
+				console.log("onTimeClick")
+			},
+			onFilterClick() {
+				console.log("onFilterClick")
 			}
 		}
 	}
 </script>
 
 <style>
-	.tabs {
+	.parent {
 		flex: 1;
 		flex-direction: column;
 		overflow: hidden;
-		background-color: #E5E5E5;
-		/* #ifdef MP-ALIPAY || MP-BAIDU */
-		height: 100vh;
-		/* #endif */
 	}
-	.segment-control {
-		background-color: #007AFF;
+
+	.head {
+		background-color: #FFFFFF;
+		flex-direction: column;
+	}
+
+	.content {
+		flex-direction: row;
 		height: 80rpx;
 	}
-	
-	.segment-control-line {
-	    height: 1rpx;
-	    background-color: #cccccc;
+
+	.time-background {
+		flex: 1;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
 	}
-	
-	.list {
-		background-color: #DCDFE6;
-	    flex: 1;
-	    /* #ifndef MP-ALIPAY */
-	    flex-direction: column;
-	    /* #endif */
-	    width: 750rpx;
-		width:100%;
+
+	.filter-background {
+		flex: 1;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
 	}
-	
-	.listing-item {
-		height: 150rpx;
+
+	.time {
+		color: #FF7519;
+		font-size: 13sp;
+		margin-right: 10rpx;
 	}
-	
-	.update-tips {
-	    position: absolute;
-	    left: 0;
-	    top: 41px;
-	    right: 0;
-	    padding-top: 5px;
-	    padding-bottom: 5px;
-	    background-color: #FDDD9B;
-	    align-items: center;
-	    justify-content: center;
-	    text-align: center;
+
+	.filter {
+		color: #3F536E;
+		font-size: 13sp;
+		margin-right: 10rpx;
 	}
-	
-	.update-tips-text {
-	    font-size: 14px;
-	    color: #ffffff;
+
+	.time-arrow {
+		width: 14rpx;
+		height: 12rpx;
+		justify-content: center;
 	}
-	
-	.refresh {
-	    width: 750rpx;
-		width:100%;
-	    height: 64px;
-	    justify-content: center;
-	}
-	
-	.refresh-view {
-	    flex-direction: row;
-	    flex-wrap: nowrap;
-	    align-items: center;
-	    justify-content: center;
-	}
-	
-	.refresh-icon {
-		width: 30px;
-		height: 30px;
-		transition-duration: .5s;
-		transition-property: transform;
-		transform: rotate(0deg);
-		transform-origin: 15px 15px;
-	}
-	
-	.refresh-icon-active {
-		transform: rotate(180deg);
-	}
-	
-	.loading-icon {
-		width: 20px;
-		height: 20px;
-		margin-right: 5px;
-		color: #999999;
-	}
-	
-	.loading-text {
-	    margin-left: 2px;
-	    font-size: 16px;
-	    color: #999999;
-	}
-	
-	.loading-more {
-	    align-items: center;
-	    justify-content: center;
-	    padding-top: 10px;
-	    padding-bottom: 10px;
-	    text-align: center;
-	}
-	
-	.loading-more-text {
-	    font-size: 28rpx;
-	    color: #999;
+
+	.filter-arrow {
+		width: 14rpx;
+		height: 12rpx;
+		justify-content: center;
 	}
 </style>
