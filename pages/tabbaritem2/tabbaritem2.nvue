@@ -2,11 +2,11 @@
 	<view class="parent">
 		<view class="head">
 			<view class="content">
-				<view class="time-background" @click="onTimeClick">
+				<view class="time-background" @click="onTimeClick()">
 					<text class="time">发布时间</text>
 					<image class="time-arrow" mode="aspectFit" src="/static/images/category_arrow1.png"></image>
 				</view>
-				<view class="filter-background" @click="onFilterClick">
+				<view class="filter-background" @click="onFilterClick()">
 					<text class="filter">筛选</text>
 					<image class="filter-arrow" mode="aspectFit" src="/static/images/category_arrow2.png"></image>
 				</view>
@@ -15,8 +15,7 @@
 		</view>
 		<list-refresh class="list" ref="list" :lists="lists" :hasMoreData="hasMoreData" @refreshData="refreshData">
 			<cell v-for="(item, index) in lists" :key="item">
-				<!-- <text>{{item.number}} | {{item.source}} | {{item.name}}</text> -->
-				<category-item :item="item"></category-item>
+				<category-item :item="item" @click="onCellClick(item)"></category-item>
 			</cell>
 		</list-refresh>
 	</view>
@@ -24,13 +23,13 @@
 
 <script>
 	import line from '../../components/line/line.vue'
-	import listRefresh from '../components/list-refresh/list-refresh.nvue'
+	import list from '../components/list-refresh/list-refresh.nvue'
 	import cell from '../../components/category-item/category-item.vue'
 
 	export default {
 		components: {
 			line,
-			listRefresh,
+			list,
 			cell
 		},
 		data() {
@@ -73,6 +72,9 @@
 			},
 			onFilterClick() {
 				console.log("onFilterClick")
+			},
+			onCellClick(item) {
+				console.log("onCellClick")
 			}
 		}
 	}

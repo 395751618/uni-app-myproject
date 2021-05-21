@@ -2314,22 +2314,35 @@ var render = function() {
         { staticClass: _vm._$g(2, "sc"), attrs: { _i: 2 } },
         [
           _c(
-            "v-uni-view",
-            { attrs: { _i: 3 } },
-            [
-              _c("v-uni-text", { attrs: { _i: 4 } }, [
-                _vm._v(_vm._$g(4, "t0-0"))
-              ])
-            ],
-            1
+            "v-uni-text",
+            { staticClass: _vm._$g(3, "sc"), attrs: { _i: 3 } },
+            [_vm._v(_vm._$g(3, "t0-0"))]
           ),
-          _c("v-uni-view", { attrs: { _i: 5 } }, [
-            _vm._v("报盘号" + _vm._$g(5, "t0-0"))
-          ]),
-          _c("v-uni-view", { attrs: { _i: 6 } }, [_vm._v("货源地")]),
-          _c("v-uni-view", { attrs: { _i: 7 } }, [_vm._v("预计装柜重量")]),
-          _c("v-uni-view", { attrs: { _i: 8 } }, [_vm._v("预计柜数")]),
-          _c("v-uni-view", { attrs: { _i: 9 } }, [_vm._v("价格")])
+          _c(
+            "v-uni-text",
+            { staticClass: _vm._$g(4, "sc"), attrs: { _i: 4 } },
+            [_vm._v("报盘号: " + _vm._$g(4, "t0-0"))]
+          ),
+          _c(
+            "v-uni-text",
+            { staticClass: _vm._$g(5, "sc"), attrs: { _i: 5 } },
+            [_vm._v("货源地: " + _vm._$g(5, "t0-0"))]
+          ),
+          _c(
+            "v-uni-text",
+            { staticClass: _vm._$g(6, "sc"), attrs: { _i: 6 } },
+            [_vm._v("预计装柜重量: " + _vm._$g(6, "t0-0"))]
+          ),
+          _c(
+            "v-uni-text",
+            { staticClass: _vm._$g(7, "sc"), attrs: { _i: 7 } },
+            [_vm._v("预计柜数: " + _vm._$g(7, "t0-0"))]
+          ),
+          _c(
+            "v-uni-text",
+            { staticClass: _vm._$g(8, "sc"), attrs: { _i: 8 } },
+            [_vm._v("价格: " + _vm._$g(8, "t0-0"))]
+          )
         ],
         1
       )
@@ -2425,7 +2438,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 13);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "\n.list-item[data-v-32b0834a] {\n\tbackground-color: #8F8F94;\n\t-webkit-box-orient: horizontal;\n\t-webkit-box-direction: normal;\n\t-webkit-flex-direction: row;\n\t        flex-direction: row;\n\tmargin-top: 15px;\n\tmargin-left: $xx-spaceing-hmargin;\n}\n.content[data-v-32b0834a] {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t-webkit-flex-direction: column;\n\t        flex-direction: column;\n\tmargin-left: 5px;\n}\n.icon[data-v-32b0834a] {\n\twidth: 130px;\n\theight: 130px;\n\tmargin-left: 15px;\n\tborder-radius: 10px;\n}\n", ""]);
+exports.push([module.i, "\n.list-item[data-v-32b0834a] {\n\t-webkit-box-orient: horizontal;\n\t-webkit-box-direction: normal;\n\t-webkit-flex-direction: row;\n\t        flex-direction: row;\n\tmargin-top: 20rpx;\n}\n.content[data-v-32b0834a] {\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t-webkit-flex-direction: column;\n\t        flex-direction: column;\n\tmargin-left: 20rpx;\n}\n.icon[data-v-32b0834a] {\n\twidth: 120px;\n\theight: 120px;\n\tmargin-left: 20rpx;\n\tborder-radius: 8px;\n}\n.name[data-v-32b0834a] {\n\tfont-size: 14sp;\n\tmargin-top: 10rpx;\n\tmargin-bottom: 10rpx;\n}\n.number[data-v-32b0834a] {\n\tfont-size: 13sp;\n\tmargin-bottom: 5rpx;\n}\n.source[data-v-32b0834a] {\n\tfont-size: 13sp;\n\tmargin-bottom: 5rpx;\n}\n.ton[data-v-32b0834a] {\n\tfont-size: 13sp;\n\tmargin-bottom: 5rpx;\n}\n.container[data-v-32b0834a] {\n\tfont-size: 13sp;\n\tmargin-bottom: 5rpx;\n}\n.price[data-v-32b0834a] {\n\tfont-size: 13sp;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
